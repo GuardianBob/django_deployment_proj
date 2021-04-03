@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <title>Edit Show {{ show.id }}</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="row justify-content-end">
+                <a href="/shows">Go Back</a>
+            </div>
+            <div class="col-md-6">
+                <h2>Edit Show {{ show.id }}</h2>
+                {% if messages %} <!-- place this above the form -->
+                    <ul class="messages">    
+                        {% for message in messages %}    
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <form action="update" method="post">
+                {% csrf_token %}                    
+                        <div class="form-group">                    
+                            <label for="title">Title:</label>
+                            <input type="text" name="title" id="title" class="form-control" value="{{ show.title }}">
+                            <label for="network">Network:</label>
+                            <input type="text" name="network" id="network" class="form-control" value="{{ show.network.name }}">
+                            <label for="release">Release Date:</label>
+                            <input type="date" name="release" id="release" class="form-control" value='{{ show.release_date|date:"Y-m-d" }}'> 
+                            <label for="description">Description:</label>  
+                            <textarea id="description" name="description" class="form-control" rows="3" >{{ show.description }}</textarea>                        
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="Submit">                                
+                </form>                
+            </div> 
+            <div class="row">
+                <div class="col-md-6 my-5 mx-2"><a href="../{{ show.id }}">Go to Show</a></div>
+                
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

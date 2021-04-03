@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <title>TV Show {{ show.id }}</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="row justify-content-end">
+                <a href="../shows">Go Back</a>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <h2>TV Show {{ show.id }}</h2>
+                    <p>&nbsp</p>
+                    <p><b>Title:</b>  {{ show.title }}</p>
+                    <p><b>Network:</b>  {{ show.network.name }} </p>
+                    <p><b>Release Date:</b>  {{ show.release_date|date:"M d Y" }}</p>
+                    <p><b>Description:</b>  {{ show.description }}</p>
+                </div> 
+            </div>
+            <div class="row my-5 justify-content-center align-items-end">
+                <div class="col-md-10">
+                    <p><b>Last Updated:</b>  {{ show.updated_at }}</p>
+                    <a href="/shows/{{ show.id }}/edit">Edit</a> | <a href="/shows/{{ show.id }}/destroy">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

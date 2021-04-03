@@ -1,0 +1,87 @@
+<!-- ============SHOWS Solution============== -->
+<h1>All Shows</h1>
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Network</th>
+                <th>Release Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for show in shows %}
+            <tr>
+                <td>{{ show.id }}</td>
+                <td>{{ show.title }}</td>
+                <td>{{ show.network }}</td>
+                <td>{{ show.release_date|date:"SHORT_DATE_FORMAT" }}</td>
+                <td><a href="/shows/{{ show.id }}">Show</a> | <a href="/shows/{{ show.id }}/edit">Edit</a> | <a href="/shows/{{ show.id }}/delete">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <a href="/shows/new">Add a Show!</a>
+    </table>
+
+<!-- ============EDIT Solution============== -->
+<h1>Edit Show</h1>
+    <form action="/shows/{{ show.id }}/update" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" class="form-control" value="{{ show.title}}">
+        </div>
+        <div class="form-group">
+            <label for="network">Network</label>
+            <input type="text" name="network" id="network" class="form-control" value="{{ show.network}}">
+        </div>
+        <div class="form-group">
+            <label for="release_date">Release Date</label>
+            <input type="date" name="release_date" id="release_date" class="form-control" value="{{ show.release_date|date:'Y-m-d'}}">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" cols="30" rows="10" class="form-control">{{ show.description}}</textarea>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+
+<!-- ============NEW Solution============== -->
+<h1>New Show</h1>
+    <form action="/shows/create" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="network">Network</label>
+            <input type="text" name="network" id="network" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="release_date">Release Date</label>
+            <input type="date" name="release_date" id="release_date" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+
+<!-- ============SHOW Solution============== -->
+<body>
+    <h1>TV Show #{{ show.id}}</h1>
+    <h4>Title</h4>
+    <p>{{ show.title }}</p>
+    <h4>Network</h4>
+    <p>{{ show.network }}</p>
+    <h4>Release Date</h4>
+    <p>{{ show.release_date }}</p>
+    <h4>Description</h4>
+    <p>{{ show.description }}</p>
+    <h4>Last Updated</h4>
+    <p>{{ show.updated_at }}</p>
+    <a href="/shows/{{ show.id }}/edit">Edit</a> | <a href="/shows/{{ show.id }}/delete">Delete</a>
+</body>

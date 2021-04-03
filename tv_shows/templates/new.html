@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <title>Add Show</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="row justify-content-end">
+                <a href="../shows">Go Back</a>
+            </div>
+            <!-- {% if messages %} 
+            <ul class="messages">    
+                {% for message in messages %}    
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                {% endfor %}
+            </ul>
+            {% endif %} -->
+            <form action="create" method="post">
+            {% csrf_token %}
+                <div class="col-md-5">
+                    <div class="form-group">                    
+                        <label for="title">Title:</label>
+                        <input type="text" name="title" id="title" class="form-control" value="{{ title }}">                        
+                        <p class="errmsg">{{ errors.title }}</p>
+                        <p class="errmsg">{{ errors.title2 }}</p>
+                        <label for="network">Network:</label>
+                        <input type="text" name="network" id="network" class="form-control" value="{{ network }}">
+                        <p class="errmsg">{{ errors.network }}</p>
+                        <label for="release">Release Date:</label>
+                        <input type="date" name="release" id="release" class="form-control" value="{{ release }}"> 
+                        <p class="errmsg">{{ errors.release }}</p>
+                        <label for="description">Description:</label>  
+                        <textarea class="form-control" rows="3" id="description" name="description" value="{{ description }}"></textarea>                                                
+                        <p class="errmsg">{{ errors.description }}</p>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Submit">
+                </div>                
+            </form>
+        </div>
+    </div>
+</body>
+</html>
